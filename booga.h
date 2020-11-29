@@ -1,6 +1,7 @@
 
 #ifndef __BOOGA_H
 #define __BOOGA_H
+
 /*
  * example.h -- definitions for the char module
  *
@@ -19,24 +20,20 @@
 #define TYPE(dev)   (MINOR(dev) >> 4)  /* high nibble */
 #define NUM(dev)    (MINOR(dev) & 0xf) /* low  nibble */
 
-
 struct booga_device {
-	char *str;
-	unsigned int number;
+	unsigned int opens;
 };
 typedef struct booga_device booga_device;
+
 /*
  * The different configurable parameters
  */
 struct booga_stats {
-	long int num_open;
-	long int num_read; 
-	long int num_write; 
-	long int num_close; 
+	long int bytes_read;
+	long int bytes_written;
+	booga_device devs[BOOGA_NR_DEVS];	
 	struct semaphore sem;
 };
 typedef struct booga_stats booga_stats;
-
-/*extern example_stats Example_Device_Stats;*/
 
 #endif /* __EXAMPLE_H */
